@@ -94,7 +94,7 @@ public class Main {
                 String apellido = request.queryParams("apellido");
                 String telefono = request.queryParams("telefono");
 
-                int pos = posicionEstudiante(estudianteEditar);
+                int pos = posEstudiante(estudianteEditar);
 
                 estudianteEditar.setMatricula(Integer.parseInt(matricula));
                 estudianteEditar.setNombre(nombre);
@@ -118,7 +118,7 @@ public class Main {
     }
 
 
-    private static int posicionEstudiante(Estudiante estudiante){
+    private static int posEstudiante(Estudiante estudiante){
 
         for (int i =0; i < estudiantes.size(); i++){
 
