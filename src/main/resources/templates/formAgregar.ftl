@@ -38,7 +38,7 @@
                     <style>
                         h1 { color:darkblue; }
                     </style>
-                    <h1 id="titulo">Agregar estudiante</h1>
+                    <h1 id="titulo">Nuevo estudiante</h1>
 
                 </div>
             </div>

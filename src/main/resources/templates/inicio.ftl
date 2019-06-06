@@ -76,7 +76,7 @@
                     </tbody>
                 </table>
 
-                <td><a href="/agregarEstudiante" class="btn btn-primary"><i class="btn btn"> Nuevo Estudiante</i></a></td>
+                <td><a href="/nuevoEstudiante" class="btn btn-primary"><i class="btn btn"> Nuevo Estudiante</i></a></td>
 
             </div>
         </div>

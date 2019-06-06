@@ -36,7 +36,7 @@ public class Main {
         }, freeMarkerEngine);
 
 
-        get("/agregarEstudiante", (request, response) ->
+        get("/nuevoEstudiante", (request, response) ->
                 configuration.getTemplate("formAgregar.ftl"));
 
 
