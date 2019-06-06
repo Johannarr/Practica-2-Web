@@ -30,6 +30,9 @@
                 <div style="float : left">
 
                     <div id="tituloMenu" style="float: left;">
+                        <style>
+                            h1 { color:darkblue; }
+                        </style>
 
                         <h1 id="titulo">Estudiantes</h1>
 

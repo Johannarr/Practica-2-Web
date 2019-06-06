@@ -32,6 +32,10 @@
 
                 <div id="tituloMenu">
 
+                    <td><a href="/" ><i style="font-size:36px;color:dodgerblue"class="fa fa-home" ></i></a></td>
+                    <style>
+                        h1 { color:darkblue; }
+                    </style>
                     <h1 id="titulo">Estudiante</h1>
 
                 </div>
