@@ -33,10 +33,14 @@
 
                 <div id="tituloMenu">
 
-                       <h1 id="titulo">Agregar estudiante</h1>
+
+                    <td><a href="/" ><i style="font-size:36px;color:darkblue"class="fa fa-home" ></i></a></td>
+                    <h1 id="titulo">Agregar estudiante</h1>
 
                 </div>
             </div>
+
+
             <div>
 
 
@@ -63,15 +67,14 @@
 
                 <div style="float: right">
 
-                    <button type="submit" class="btn btn-default">Guardar</button>
+                    <button type="submit" class="btn btn" class="btn btn-primary">Guardar</button>
+
 
                 </div>
 
-
             </form>
+
             </div>
-
-
         </div>
     </div>
     <!-- /#page-content-wrapper -->

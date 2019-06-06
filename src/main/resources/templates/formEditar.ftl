@@ -58,7 +58,8 @@
 
 
         <div style="float: right">
-            <button type="submit" class="btn btn-default">Actualizar</button>
+            <button type="submit" class="btn btn" class="btn btn-primary">Actualizar</button>
+            <button  href="/" class="btn btn" class="btn btn-primary">Cancelar</button>
         </div>
 
 

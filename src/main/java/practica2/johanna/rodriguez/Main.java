@@ -2,6 +2,7 @@ package practica2.johanna.rodriguez;
 
 import freemarker.template.Configuration;
 import spark.ModelAndView;
+import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.io.StringWriter;
@@ -14,40 +15,33 @@ import static spark.Spark.*;
 
 public class Main {
 
+    private static Estudiante estudianteActual;
     private static ArrayList<Estudiante> estudiantes = new ArrayList<>();
-    private static Estudiante estudianteEditar;
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
 
 
         staticFiles.location("/templates");
 
-
-
-
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         configuration.setClassForTemplateLoading(Main.class, "/templates");
-
         FreeMarkerEngine freeMarkerEngine = new FreeMarkerEngine(configuration);
-
 
 
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("titulo", "Inicio");
-            if (estudiantes.size() > 5)
-                attributes.put("estudiantes",estudiantes.subList(0,5));
-            else
-                attributes.put("estudiantes",estudiantes);
+            attributes.put("estudiantes",estudiantes);
             return new ModelAndView(attributes, "inicio.ftl");
         }, freeMarkerEngine);
 
 
-        get("/agregarEstudiantes", (request, response) -> configuration.getTemplate("formAgregar.ftl"));
+        get("/agregarEstudiante", (request, response) ->
+                configuration.getTemplate("formAgregar.ftl"));
 
 
         post("/agregar",(request, response) -> {
-            StringWriter escritor = new StringWriter();
-            try {
+            StringWriter writer = new StringWriter();
                 String matricula = request.queryParams("matricula");
                 String nombre = request.queryParams("nombre");
                 String apellido = request.queryParams("apellido");
@@ -55,64 +49,61 @@ public class Main {
                 String matriculaParseada = matricula.replace(",", "");
                 estudiantes.add(new Estudiante(Integer.parseInt(matriculaParseada), nombre, apellido, telefono));
                 response.redirect("/");
-            }catch (Exception error){
-                System.out.println("Error agregando estudiante " + error.toString());
-                response.redirect("/agregarEstudiantes");
-            }
-            return escritor;
+                return writer;
         });
 
 
-        get("/eliminar/:posicion",(request, response) -> {
 
-            String posicion = request.params("posicion");
+        get("/ver/:pos", (request, response) -> {
 
-            estudiantes.remove(Integer.parseInt(posicion));
-
-
-            response.redirect("/");
-            return "";
-        });
-
-        get("/editar/:posicion", (request, response) -> {
+            String pos = request.params("pos");
+            Estudiante estudiante = estudiantes.get(Integer.parseInt(pos));
             Map<String, Object> attributes = new HashMap<>();
-            String posicion = request.params("posicion");
-            Estudiante estudiante = estudiantes.get(Integer.parseInt(posicion));
+            attributes.put("estudiante", estudiante);
+            return new ModelAndView(attributes, "view.ftl");
+        }, freeMarkerEngine);
 
-            estudianteEditar = estudiante;
+
+        get("/editar/:pos", (request, response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            String pos = request.params("pos");
+            Estudiante estudiante = estudiantes.get(Integer.parseInt(pos));
+            estudianteActual = estudiante;
             attributes.put("titulo", "Editar estudiante");
             attributes.put("estudiante", estudiante);
-
             return new ModelAndView(attributes, "formEditar.ftl");
         }, freeMarkerEngine);
 
         post("/editar",(request, response) -> {
-            StringWriter escritor = new StringWriter();
-            try {
+            StringWriter writer = new StringWriter();
                 String matricula = request.queryParams("matricula");
                 String nombre = request.queryParams("nombre");
                 String apellido = request.queryParams("apellido");
                 String telefono = request.queryParams("telefono");
 
-                int pos = posEstudiante(estudianteEditar);
+                int pos = posEstudiante(estudianteActual);
 
-                estudianteEditar.setMatricula(Integer.parseInt(matricula));
-                estudianteEditar.setNombre(nombre);
-                estudianteEditar.setApellido(apellido);
-                estudianteEditar.setTelefono(telefono);
+                estudianteActual.setMatricula(Integer.parseInt(matricula));
+                estudianteActual.setNombre(nombre);
+                estudianteActual.setApellido(apellido);
+                estudianteActual.setTelefono(telefono);
 
                 if (pos != -1){
 
-                    estudiantes.set(pos, estudianteEditar);
-                    estudianteEditar = null;
+                    estudiantes.set(pos, estudianteActual);
+                    estudianteActual = null;
                 }
-
                 response.redirect("/");
-            }catch (Exception error){
-                System.out.println("Editando estudiante " + error.toString());
 
-            }
-            return escritor;
+            return writer;
+        });
+
+        get("/eliminar/:pos",(request, response) -> {
+
+            String pos = request.params("pos");
+            estudiantes.remove(Integer.parseInt(pos));
+            response.redirect("/");
+            return "";
         });
 
     }
@@ -127,7 +118,6 @@ public class Main {
                 return i;
             }
         }
-
         return  -1;
     }
 }

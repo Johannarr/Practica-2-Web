@@ -49,8 +49,9 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Telefono</th>
+                            <th>Editar</th>
                             <th>Eliminar</th>
-                            <th>Modificar</th>
+                            <th>Visualizar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,9 +63,9 @@
                                 <td>${estudiante.nombre}</td>
                                 <td>${estudiante.apellido}</td>
                                 <td>${estudiante.telefono}</td>
-
-                                <td><a href="/eliminar/${x}"   class="btn"><i class="far fa-trash-alt"></i></a></td>
-                                <td><a href="/editar/${x}" class="btn"><i class="fas fa-pencil-alt"></i></a></td>
+                                <td><a href="/editar/${x}" class="btn"><i class="fa fa-edit" style="font-size:16px;color:darkblue"></i></a></td>
+                                <td><a href="/eliminar/${x}"  class="btn"><i class="fa fa-trash" style="font-size:16px;color:darkred"></i></a></td>
+                                <td><a href="/ver/${x}" class="btn"><i class="fa fa-eye" style="font-size:16px;color:darkblue"></i></a></td>
 
                             </tr>
                         <#assign x++>
@@ -72,7 +73,7 @@
                     </tbody>
                 </table>
 
-                <td><a href="/agregarEstudiantes" class="btn btn-primary"><i class="btn btn"> Nuevo Estudiante</i></a></td>
+                <td><a href="/agregarEstudiante" class="btn btn-primary"><i class="btn btn"> Nuevo Estudiante</i></a></td>
 
             </div>
         </div>
